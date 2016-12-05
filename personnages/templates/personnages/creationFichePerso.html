@@ -1,0 +1,27 @@
+
+<h1>Créez la fiche de votre personnage</h1>
+
+{% if creation %}
+
+La fiche de votre personnage à bien été créée.
+<a href="{% url 'rpicHomep' %}">Retour à la page d'accueil</a>
+
+{% else %}
+
+
+<form action="{% url 'creationFichePerso' %}" method="post">
+	{% csrf_token %}
+	<p>
+		<label for="perso">Perso:</label>
+		<select id="perso" name="perso" required="">
+			<option value="" selected="selected">---------</option>
+			{% for perso in listePerso %}
+				<option value={{perso.id}}>{{perso.nom}}</option>
+			{% endfor %}
+		</select>
+	</p>
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+</form>
+
+{% endif %}

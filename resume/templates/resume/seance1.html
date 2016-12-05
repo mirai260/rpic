@@ -1,0 +1,8 @@
+
+{% load static %}
+
+{% for url in tab%}
+
+<p class="thumbnail_align"> <img src="{% static url %}" alt="" class="thumbnail"/> </p>
+
+{% endfor %}

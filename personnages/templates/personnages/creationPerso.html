@@ -1,0 +1,17 @@
+
+<h1>Créez votre personnage</h1>
+
+{% if creation %}
+
+Votre Personnage à bien été créé
+<a href="{% url 'rpicHomep' %}">Retour à la page d'accueil</a>
+
+{% else %}
+
+<form action="{% url 'creationPerso' %}" method="post" enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+</form>
+
+{% endif %}

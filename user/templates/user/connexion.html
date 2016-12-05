@@ -1,0 +1,29 @@
+<h1>Se connecter</h1>
+
+{% if error %}
+<p><strong>Utilisateur inconnu ou mauvais de mot de passe.</strong></p>
+{% endif %}
+
+{% if next != False %}
+Vous devez vous connecter pour acceder à cette page.
+{% endif %}
+
+{% if user.is_authenticated %}
+
+Vous êtes connecté, {{ user.username }} !
+<a href="{% url 'rpicHomep' %}">Page d'accueil</a>
+
+{% else %}
+
+<form method="post" action={{url}}>
+
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Se connecter" />
+
+</form>
+
+Vous n'avez pas de compte ?
+<a href="{% url 'inscription' %}">S'inscrire</a>
+
+{% endif %}
