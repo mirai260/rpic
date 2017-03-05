@@ -1,3 +1,10 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
 <h1>Se connecter</h1>
 
 {% if error %}
@@ -16,7 +23,6 @@ Vous êtes connecté, {{ user.username }} !
 {% else %}
 
 <form method="post" action={{url}}>
-
 	{% csrf_token %}
 	{{ form.as_p }}
 	<input type="submit" value="Se connecter" />
@@ -27,3 +33,4 @@ Vous n'avez pas de compte ?
 <a href="{% url 'inscription' %}">S'inscrire</a>
 
 {% endif %}
+{% endblock %}

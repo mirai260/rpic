@@ -1,0 +1,43 @@
+{% load static %}
+
+<!doctype html>
+<html lang="fr">
+<head>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/images/Logo_2.jpg' %}" />
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RPIC</title>
+<link href="{% static 'home/css/simpleGridTemplate.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+
+<body>
+<!-- Main Container -->
+<div class="container">
+  <!-- Navigation -->
+    <header>
+        <a href="{% url 'rpicHomep' %}">
+            <h4 class="logo">RPIC</h4>
+        </a>
+
+        <nav>
+            <ul>
+                <li><a  href="{% url 'rpicHomep' %}">HOME</a></li>
+                <li><a href="{% url 'membres' %}">MEMBERS</a></li>
+                <li><a href="{% url 'univers1' %}">ABOUT</a></li>
+                <li> <a href="{% url 'contact' %}">CONTACT</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    {% block content %}
+    Contenu de la page !
+    {% endblock %}
+
+
+    <div class="copyright">Copyright © Maillet Antonin. All rights reserved.</div>
+</div>
+</body>
+</html>

@@ -25,7 +25,7 @@ SECRET_KEY = '5xdmjfx+11ve^t&p*v&f7x%+jpz=k756h-sv7j*=!ypqfv9%_c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['82.246.68.75', '192.168.0.21', 'localhost']
+ALLOWED_HOSTS = []
 
 LOGIN_URL = '/connexion'
 
@@ -42,6 +42,10 @@ INSTALLED_APPS = [
 	'resume',
 	'user',
 	'personnages',
+	'chat',
+	'quetes',
+	'items',
+	'background',
 ]
 
 MIDDLEWARE = [
@@ -59,7 +63,7 @@ ROOT_URLCONF = 'rpic.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ["/home/rpic/rpic/templates/"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,10 +122,14 @@ USE_L10N = True
 
 USE_TZ = True
 
+X_FRAME_OPTIONS = 'ALLOW FROM http://rpic.fr'
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_ROOT = "/home/rpic/rpic/static/"
+STATIC_URL = "/static/"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = "/home/rpic/rpic/media/"
+MEDIA_URL = "/media/"

@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+#image{
+	margin: auto;
+	vertical-align: center;
+    display:block;
+}
+
+footer{
+	
+	font-family: "Source Sans Pro";
+	text-align:center;
+	font-size:36px;
+	
+}

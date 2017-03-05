@@ -1,0 +1,27 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<form action="{% url 'modifierProfil' %}" method="post">
+	{% csrf_token %}
+	<p>
+		<label for="perso">Personnage principal :</label>
+		<select id="perso" name="perso" required="">
+		    {% if perso == null %}
+			    <option value="None" selected="selected">----------</option>
+			{% else %}
+			    <option value={{perso.id}} selected="selected">{{perso.nom}}</option>
+			{% endif %}
+			{% for p in listePerso %}
+			    {% if p != perso %}
+				    <option value={{p.id}}>{{p.nom}}</option>
+			    {% endif %}
+			{% endfor %}
+		</select>
+	</p>
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+</form>
+{% endblock %}

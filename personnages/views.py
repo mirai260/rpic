@@ -1,7 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import PersoForm, FichePersoForm
 from .models import Perso, FichePerso
 from django.contrib.auth.decorators import login_required
+
+
 
 @login_required()
 def creationPerso(request):
@@ -13,29 +15,82 @@ def creationPerso(request):
 		perso = Perso(nom = nom, image = image, user = user)
 		perso.save()
 		creation = True
+		return redirect(afficherPerso)
 	return render(request, 'personnages/creationPerso.html', locals())
+
+
 
 @login_required()
 def creationFichePerso(request):
-	form = FichePersoForm(request.POST or None)
-	user = request.user
-	listePerso = user.perso_set.all()
-	id_perso = request.POST.get('perso',True)
-	if form.is_valid() and id_perso != True:
-	
-		nom = form.cleaned_data['nom']
-		hp = form.cleaned_data['hp']
-		mana = form.cleaned_data['mana']
-		po = form.cleaned_data['po']
-		traits = form.cleaned_data['traits']
-		competences = form.cleaned_data['competences']
-		sorts = form.cleaned_data['sorts']
-		items = form.cleaned_data['items']
-		descriptif = form.cleaned_data['descriptif']
-		perso = Perso.objects.get(id = id_perso)
-		
-		fichePerso = FichePerso(nom = nom, hp = hp, mana = mana, po = po, traits = traits, competences = competences, sorts = sorts, items = items, descriptif = descriptif, perso = perso)
-		fichePerso.save()
-		creation = True
-	return render(request, 'personnages/creationFichePerso.html', locals())
-		
+    form = FichePersoForm(request.POST or None)
+    user = request.user
+    listePerso = user.perso_set.all()
+    id_perso = request.POST.get('perso',False)
+    if (form.is_valid() and id_perso != False):
+        fichePerso = form.save(commit=False)
+        fichePerso.perso = Perso.objects.get(id = id_perso)
+        fichePerso.save()
+        return redirect(afficherPerso)
+    return render(request, 'personnages/creationFichePerso.html', locals())
+
+
+@login_required()
+def modifierPerso(request, id_perso):
+    perso = Perso.objects.get(id = id_perso)
+    if request.method == "GET":
+        form = PersoForm(instance = perso)
+    elif request.method == "POST":
+        form = PersoForm(request.POST, request.FILES, instance = perso)
+        if form.is_valid():
+            form.save()
+            return redirect(afficherPerso)
+    return render(request, 'personnages/modifierPerso.html', locals())
+
+
+@login_required()
+def modifierFichePerso(request, id_fichePerso):
+    fichePerso = FichePerso.objects.get(id = id_fichePerso)
+    if request.method == "GET":
+        form = FichePersoForm(instance = fichePerso)
+    elif request.method == "POST":
+        form = FichePersoForm(request.POST, instance = fichePerso)
+        if form.is_valid():
+            form.save()
+            return redirect(afficherPerso)
+    return render(request, 'personnages/modifierFichePerso.html', locals())
+
+
+
+@login_required()
+def afficherPerso(request):
+    user = request.user
+    if user.has_perm("personnages.voirFichePerso"):
+        listePerso = Perso.objects.all()
+    else:
+        listePerso = user.perso_set.all()
+    id_perso = request.POST.get('perso', "None")
+    id_fichePerso = request.POST.get('fichePerso', "None")
+    if id_fichePerso != "None":
+        fichePerso = FichePerso.objects.get(id = id_fichePerso)
+        perso = fichePerso.perso
+        listeFiche = perso.ficheperso_set.all()
+        afficher = True
+        listeItems = fichePerso.item.all()
+        return render(request, 'personnages/afficherPerso.html', locals())
+    elif id_perso != "None":
+        perso = Perso.objects.get(id = id_perso)
+        listeFiche = perso.ficheperso_set.all()
+        choisirFiche = True
+        return render(request, 'personnages/afficherPerso.html', locals())
+    else:
+        choisirPerso = True
+        return render(request, 'personnages/afficherPerso.html', locals())
+
+
+
+
+
+
+
+
+

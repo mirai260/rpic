@@ -1,0 +1,13 @@
+
+
+
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<a href="{% url 'stories' %}">Retour aux histoires</a>
+<h1>{{lore.titre}}</h1>
+<p>{{lore.histoire|linebreaks}}</p>
+
+{% endblock %}

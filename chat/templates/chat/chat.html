@@ -1,0 +1,19 @@
+
+
+{% if envoi %}
+<META HTTP-EQUIV="Refresh" CONTENT="0.0001; URL={% url 'newChat' %}">
+{% endif %}
+
+
+<form action="{% url 'newChat' %}" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+</form>
+
+{% if user.is_superuser %}
+    <form action="{% url 'resetChat' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Reset chat" />
+    </form>
+{% endif %}

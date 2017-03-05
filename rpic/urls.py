@@ -22,4 +22,8 @@ urlpatterns = [
 	url(r'^', include('home.urls')),
 	url(r'^', include('user.urls')),
 	url(r'^', include('personnages.urls')),
+	url(r'^', include('chat.urls')),
+	url(r'^', include('quetes.urls')),
+	url(r'^', include('items.urls')),
+	url(r'^', include('background.urls')),
 ]

@@ -1,0 +1,19 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+personnage principal : {{profil.personnagePrincipal}}<br><br>
+prenom : {{profil.prenom}}<br><br>
+nom : {{profil.nom}}<br><br>
+adresse email : {{profil.email}}<br><br>
+description : {{profil.description}}<br><br>
+
+<form action="{% url 'modifierProfil' %}" method="get">
+    <input type="submit" value="Modifier le profil" />
+</form>
+
+<a href="{% url 'rpicHomep' %}">Retour à l'accueil</a>
+{% endblock %}

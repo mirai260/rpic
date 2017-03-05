@@ -1,0 +1,20 @@
+
+
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>Quelle histoire souhaitez-vous consulter ?</h1>
+<form action="{% url 'creationLore' %}" method="get">
+	{% csrf_token %}
+	<input type="submit" value="Creer une histoire" />
+</form>
+
+{% for lore in liste %}
+<h2>{{lore.titre}}</h2>
+<a href="{% url 'consulterLore' lore.id %}">Consulter</a>
+{% endfor %}
+
+
+{% endblock %}

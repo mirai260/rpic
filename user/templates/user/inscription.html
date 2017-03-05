@@ -1,5 +1,8 @@
 
+{% extends "base.html" %}
+{% load static %}
 
+{% block content %}
 {% if inscrit %}
 
 Votre inscription à bien été enregistrée !
@@ -14,3 +17,4 @@ Votre inscription à bien été enregistrée !
 </form>
 
 {% endif %}
+{% endblock %}

@@ -1,0 +1,126 @@
+
+
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<a href="{% url 'rpicHomep' %}">Retour à l'accueil</a>
+
+<form action="{% url 'afficherPerso' %}" method="post">
+	{% csrf_token %}
+	<p>
+		<label for="perso">Perso :</label>
+		<select id="perso" name="perso" required="">
+
+		    {% if choisirPerso %}
+			    <option value="None" selected="selected">---------</option>
+			{% endif %}
+
+			{% for choix in listePerso %}
+			    {% if choix == perso %}
+			        <option value={{perso.id}} selected="selected">{{perso.nom}}</option>
+			    {% else %}
+				    <option value={{choix.id}}>{{choix.nom}}</option>
+				{% endif %}
+			{% endfor %}
+
+		</select>
+	</p>
+	<input type="submit" value="Submit" />
+	<a href="{% url 'creationPerso' %}">Créer un perso</a>
+</form>
+
+{% if choisirPerso != True %}
+<form action="{% url 'modifierPerso' perso.id %}" method="get">
+    <input type="submit" value="Modifier perso" />
+</form>
+<form action="{% url 'afficherPerso' %}" method="post">
+    {% csrf_token %}
+    <p>
+    	<label for="fichePerso">Fiche_perso :</label>
+    	<select id="fichePerso" name="fichePerso" required="">
+
+            {% if choisirFiche %}
+    			<option value="None" selected="selected">---------</option>
+    	    {% endif %}
+
+    		{% for choixFiche in listeFiche %}
+    		    {% if choixFiche == fichePerso %}
+    		        <option value={{fichePerso.id}} selected="selected">{{fichePerso.nom}}</option>
+    		    {% else %}
+    			    <option value={{choixFiche.id}}>{{choixFiche.nom}}</option>
+				{% endif %}
+			{% endfor %}
+
+		</select>
+	</p>
+    <input type="submit" value="Submit" />
+    <a href="{% url 'creationFichePerso' %}">Créer une fiche perso</a>
+</form>
+{% endif %}
+
+{% if afficher %}
+
+{% if fichePerso.etat == "Mort" %}
+    <div style="background-image: url('{% static 'personnages/mort.png' %}'); background-size: contain; background-repeat: no-repeat;">
+{% endif %}
+{% if fichePerso.etat == "Disparu" %}
+    <div style="background-image: url('{% static 'personnages/missing.png' %}'); background-size: contain; background-repeat: no-repeat;">
+{% endif %}
+<ul>
+    <li>Nom fiche perso : {{fichePerso.nom}}</li>
+    <li>Lvl : {{fichePerso.lvl|linebreaks}}</li>
+    <li>Hp : {{fichePerso.hp}}</li>
+    <li>Mana : {{fichePerso.mana}}</li>
+    <li>Po : {{fichePerso.po}}</li>
+    <li>Traits : {{fichePerso.traits|linebreaks}}</li>
+    <li>Competences : {{fichePerso.competences|linebreaks}}</li>
+    <li>Sorts : {{fichePerso.sorts|linebreaks}}</li>
+    <li>Items : {{fichePerso.items|linebreaks}}</li>
+
+    <!--
+    <li>Listes des items enregistrés :<br>
+        <ul>
+            {% for item in listeItems %}
+            <li>
+                {{item.nom}} :
+                {{item.description|linebreaks}}
+            </li>
+            {% empty %}
+                aucun item enregistré
+            {% endfor %}
+        </ul>
+    </li>
+    -->
+    <li>Descriptif du perso : {{fichePerso.descriptif|linebreaks}}</li>
+    {% if fichePerso.extra != None and fichePerso.extra != "" %}
+        <li>
+            <div>
+                <object width="425" height="355">
+                    <param name="movie" value="{{fichePerso.extra}}"></param>
+                    <param name="wmode" value="transparent"></param>
+                <embed src="{{fichePerso.extra}}" type="application/x-shockwave-flash" wmode="transparent" width="425" height="355"></embed>
+                </object>
+            </div>
+        </li>
+    {% endif %}
+</ul>
+{% if fichePerso.etat == "Mort" or fichePerso.etat == "disparu"%}
+    </div>
+{% endif %}
+<form action="{% url 'modifierFichePerso' fichePerso.id %}" method="get">
+    <input type="submit" value="Modifier fiche perso" />
+</form>
+
+{% endif %}
+{% endblock %}
+
+
+
+
+
+
+
+
+

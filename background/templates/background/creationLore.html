@@ -1,0 +1,22 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>Ecrivez l'histoire !</h1>
+
+{% if creation %}
+
+L'histoire à été mise à jour !
+<a href="{% url 'stories' %}">Retour aux histoires</a>
+
+{% else %}
+
+<form action="{% url 'creationLore' %}" method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Submit" />
+</form>
+
+{% endif %}
+{% endblock %}

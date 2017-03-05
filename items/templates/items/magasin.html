@@ -1,0 +1,21 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<a href="{% url 'rpicHomep' %}">Retour à l'accueil</a>
+
+<h2>Magasin :</h2>
+
+<ul>
+    {% for offre in listeOffres %}
+    <li>
+        {{offre.item.nom}} pour {{offre.prix}} pièces d'or :<br>
+        {{offre.item.description|linebreaks}}
+    </li>
+    {% empty %}
+    Aucune vente pour le moment.
+    Revenez plus tard !
+    {% endfor %}
+</ul>
+{% endblock %}

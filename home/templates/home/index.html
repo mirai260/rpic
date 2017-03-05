@@ -1,0 +1,15 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<h1>RPIC - Menu Index</h1>
+<ul>
+    {% for url in tab %}
+        <li>
+            <a style="color:#000" href="{% url url %}">{{url}}</a>
+        </li>
+    {% endfor %}
+</ul>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

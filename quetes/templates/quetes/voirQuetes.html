@@ -1,0 +1,105 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+{% load quetes_extras %}
+
+<h1>Quetes :</h1>
+
+{% if peutCreer %}
+    <form action="{% url 'creationQuete' %}" method="get">
+        {% csrf_token %}
+        <input type="submit" value="Créer une nouvelle quete" />
+    </form>
+{% endif %}
+
+<h2>Prochaines quetes :</h2>
+<ul>
+    {% for quete in listeQuetesFutures %}
+    <li>
+        {% if quete.visible == False %}
+            <font color="blue">
+        {% endif %}
+        <h3>{{quete.titre}} :</h3>
+        {{quete.description|linebreaks}}
+        {% if user|participe:quete %}
+            <form action="{% url 'modifierParticipation' quete.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="se désinscrire..." />
+            </form>
+        {% else %}
+            <form action="{% url 'modifierParticipation' quete.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Participer !" />
+            </form>
+        {% endif %}
+        {% if peutModifier %}
+            <form action="{% url 'modifierQuete' quete.id %}" method="get">
+                {% csrf_token %}
+                <input type="submit" value="Modifier cette quete" />
+            </form>
+        {% endif %}
+        <h3>liste des participants :</h3>
+        <ul>
+            {% for participant in quete|listeParticipants %}
+                <li>{{participant|username}}</li>
+            {% empty %}
+                Aucun participants pour le moment.
+            {% endfor %}
+        </ul>
+        {% if quete.visible == False %}
+            </font>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+<h2>Quetes en cours :</h2>
+<ul>
+    {% for quete in listeQuetesEnCours %}
+    <li>
+        {% if quete.visible == False %}
+            <font color="blue">
+        {% endif %}
+        <h3>{{quete.titre}}</h3>
+        {{quete.description|linebreaks}}
+        {% if peutModifier %}
+            <form action="{% url 'modifierQuete' quete.id %}" method="get">
+                {% csrf_token %}
+                <input type="submit" value="Modifier cette quete" />
+            </form>
+        {% endif %}
+        <h3>liste des participants :</h3>
+        <ul>
+            {% for participant in quete|listeParticipants %}
+                <li>{{participant|username}}</li>
+            {% empty %}
+                Aucun participants pour le moment.
+            {% endfor %}
+        </ul>
+        {% if quete.visible == False %}
+            </font>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+
+
+<h2>Quetes terminées :</h2>
+<ul>
+    {% for quete in listeQuetesPassees %}
+    <li>
+        <h3>{{quete.titre}}</h3>
+        <a  href="{% url 'afficherQuete' quete.id %}">details</a>
+        {% if peutModifier %}
+            <form action="{% url 'modifierQuete' quete.id %}" method="get">
+                {% csrf_token %}
+                <input type="submit" value="Modifier cette quete" />
+            </form>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

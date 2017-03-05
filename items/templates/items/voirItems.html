@@ -1,0 +1,21 @@
+
+
+{% extends "base.html" %}
+
+
+{% block content %}
+<form action="{% url 'creationItem' %}" method="get">
+    {% csrf_token %}
+    <input type="submit" value="Créer un nouvel item" />
+</form>
+
+
+<ul>
+    {% for item in listeItems %}
+    <li>
+        {{item.nom}}
+        {{item.description|linebreaks}}
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

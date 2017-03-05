@@ -2,8 +2,9 @@
 {% load static %}
 
 <!doctype html>
-<html>
+<html lang="fr">
 <head>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/images/Logo_2.jpg' %}" />
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,25 +14,41 @@
 </head>
 <body>
 
-{% if user.username == "" %}
-	<a href="{% url 'connexion' %}">Se connecter</a><br>
-	<a href="{% url 'inscription' %}">S'inscrire</a>
-{% else %}
-	Bonjour {{user.username}}<br>
-	<a href="{% url 'deconnexion' %}">Se deconnecter</a>
-{% endif %}
 
 <div class="container">
   <header>
     <div class="primary_header">
-      <h1 class="title">RPIC</h1>
+        <h1 class="title">RPIC</h1>
     </div>
     <nav class="secondary_header" id="menu">
       <ul>
         <li id="linav"><a href="{% url 'rpicHomep' %}">HOME</a></li>
-        <li><a href="{% url 'membres' %}">MEMBERS</a></li>
-        <li><a href="{% url 'univers1' %}">GAME EN COURS</a></li>
+        <li><a href="{% url 'membres' %}">MEMBRES</a></li>
+        <li><a href="{% url 'univers1' %}">UNIVERS</a></li>
         <li><a href="{% url 'contact' %}">CONTACT</a></li>
+
+        {% if user.username == "" %}
+        <li><a href="{% url 'connexion' %}">CONNEXION</a></li>
+        <li><a href="{% url 'inscription' %}">INSCRIPTION</a></li>
+        {% else %}
+        <li><a href="{% url 'deconnexion' %}">DECONNECTION</a></li>
+        <li><a href="{% url 'index' %}">INDEX</a></li>
+        {% endif %}
+
+        <!--
+        <link href="{% static 'home/css/menuDeroulant.css' %}" rel="stylesheet" type="text/css">
+        <ul id="menu-demo2">
+            <li><a href="#">Lien menu 1</a>
+            	<ul>
+            		<li><a href="#">lien sous menu 1</a></li>
+            		<li><a href="#">lien sous menu 1</a></li>
+            		<li><a href="#">lien sous menu 1</a></li>
+            		<li><a href="#">lien sous menu 1</a></li>
+            	</ul>
+            </li>
+        </ul>
+        -->
+
       </ul>
     </nav>
   </header>
@@ -39,55 +56,57 @@
     <h2 class="noDisplay">Main Content</h2>
     <article class="left_article">
       <h3>Hello world</h3>
-      <p>Bonjour Isépiens, Cette page est la page où vous trouverez les informations relatives à RPIC. Cette association a pour de faire vivre une petite communauté de rôliste (novices sont aussi la bienvenue), dans un univers médiéval fantastique, créé par nos soins. </p>
-      <p>Si vous êtes intéressés ou souhaitez de plus amples informations, n'hésitez pas à nous contacter. Le premier scénario a eu lieu le jeudi 6 Octobre. Les séances durent 3-4h le jeudi après midi selon les besoins des joueurs. Si vous appréciez ces séances roleplay, nous pourrons continuer ensemble ! (Chaque mini-scénario devrait durer 4 séances). Les premiers à demander seront les premiers acceptés.</p>
+      <p>Bonjour Isépiens, Cette page est la page où vous trouverez les informations relatives à RPIC. Cette association a pour but de faire vivre une petite communauté de rôlistes (novices sont aussi la bienvenue), dans un univers médiéval fantastique, créé par nos soins. </p>
+      <p>Si vous êtes intéressés ou souhaitez de plus amples informations, n'hésitez pas à nous contacter. Les séances durent 3-4h le jeudi après midi selon les besoins des joueurs. Si vous appréciez ces séances roleplay, nous pourrons continuer ensemble ! (Chaque mini-scénario devrait durer 4 séances). Les premiers à demander seront les premiers acceptés.</p>
     </article>
-    <aside class="right_article"><img class=="right_article" src="{% static 'home/images/Logo_2.jpg' %}" width="320" height="269" alt="Logo"/></aside>
+    <aside class="right_article">
+        <img class=="right_article" src="{% static 'home/images/logo.JPG' %}" width="400" height="300" alt="Logo"/>
+    </aside>
   </section>
   <div class="row">
     <div class="columns">
-      <p class="thumbnail_align"> <a href="{% url 'univers1' %}"><img src="https://scontent-mrs1-1.xx.fbcdn.net/t31.0-8/14525150_309906229371491_6029023847623165152_o.jpg" alt="" class="thumbnail" alt="Voir plus" title="Cliquez pour accéder à cette univers"/></a> 
-      
+      <p class="thumbnail_align"> <a href="{% url 'univers1' %}"><img src="{% static 'home/images/Univers.jpg' %}" alt="" class="thumbnail" alt="Voir plus" title="Cliquez pour accéder à cette univers"/></a>
+
       </p>
       <h4>Univers 1</h4>
-      <p>Il y a 800 ans, Edelia vivait dans une semblant d’harmonie, les peuples étaient dirigés par des gouvernements (dictature, monarchie, démocratie) ont distinguait alors 10 grandes nations qui ne se mêlait pas entre eux, ils formaient ce qu’on appellerait maintenant des races ... 
+      <p>Il y a 800 ans, Edelia vivait dans une semblant d’harmonie, les peuples étaient dirigés par des gouvernements (dictature, monarchie, démocratie) ont distinguait alors 10 grandes nations qui ne se mêlait pas entre eux, ils formaient ce qu’on appellerait maintenant des races ...
       <a href="{% url 'univers1' %}">Voir plus</a>
       </p>
-      
+
     </div>
     <div class="columns">
-      <p class="thumbnail_align"> <img src="http://mystere.unblog.fr/files/2008/08/mystre.jpg" alt="" class="thumbnail"/> </p>
-      <h4>Univers 2</h4>
-      <p>Soon !</p>
+      <p class="thumbnail_align"> <a href="{% url 'voirQuetes' %}"><img src="http://kerlaft.com/wp-content/uploads/2014/07/jdr.jpg" alt="" class="thumbnail"/></a> </p>
+      <h4>Quetes en cours</h4>
+      <p>Trois quêtes vous sont actuellement proposées. La première est de protéger un mage lors d'un salon de magie, la seconde est encore tenue secrete et la troisième est sur les boucles du temps.
+    <a href="{% url 'voirQuetes' %}">Voir plus</a>
+    </p>
     </div>
     <div class="columns">
-      <p class="thumbnail_align"> <img src="http://mystere.unblog.fr/files/2008/08/mystre.jpg" alt="" class="thumbnail"/> </p>
-      <h4>Univers 3</h4>
-      <p>Soon !</p>
+      <p class="thumbnail_align"><a href="{% url 'afficherQuete' 6 %}"> <img src="https://www.bienhabillee.com/wp-content/uploads/2016/09/MAGIE-DE-LA-VIE-.jpg" alt="" class="thumbnail"/> </a></p>
+      <h4>News</h4>
+      <p>Nous organisons notre première Nuit du JDR à l'ISEP la nuit du 24/02/17 au 25/02/17. Un quête permet de réunir les 3 MJs autout des jeux interguilde de magie.
+      <a href="{% url 'afficherQuete' 6 %}">Voir plus</a>
+      </p>
     </div>
     <div class="columns">
-      <p class="thumbnail_align"> <img src="http://mystere.unblog.fr/files/2008/08/mystre.jpg" alt="" class="thumbnail"/> </p>
-      <h4>Univers 4</h4>
-      <p>Soon !</p>
-    </div>
-  </div>
-  <div class="row blockDisplay">
-    <div class="column_half left_half">
-      <h2 class="column_title">&nbsp;</h2>
-    </div>
-    <div class="column_half right_half">
-      <h2 class="column_title">&nbsp;</h2>
+      <p class="thumbnail_align"> <a href="http://www.isep.fr/nous-rencontrer"><img src="http://saintjo.fr/wp-content/uploads/2016/01/portes-ouvertes.png" alt="" class="thumbnail"/></a> </p>
+      <h4>News</h4>
+      <p>Nous serons présent lors de des journées Portes Ouvertes le 4 Mars 2017 au campus de Notre Dame des Champs. Venez nous rencontrez au foyer !
+      <a href="http://www.isep.fr/nous-rencontrer">Voir plus</a>
+      </p>
     </div>
   </div>
   <div class="social">
     <p class="social_icon"><a href="http://www.facebook.com/JDRISEP"><img src="https://cdn1.iconfinder.com/data/icons/logotypes/32/square-facebook-512.png" width="100" alt="Voir plus" class="thumbnail" title="Notre page Facebook"/></a></p>
-    <p class="social_icon"><img src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/Twitterbird.png" width="100" alt="Soon" class="thumbnail" title="Twitter Soon"/></p>
-    <p class="social_icon"><img src="http://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/102015/google-plus.png?itok=2QM_tVeh" width="100" alt="Soon" class="thumbnail" titlz="Google Plus Soon"/></p>
-    <p class="social_icon"><img src="http://www.lacqplus.asso.fr/wp-content/uploads/2015/09/Linkedin_circle.svg.png" width="100" alt="Soon" class="thumbnail" title="LinkedIn Soon"/></p>
+    <p class="social_icon"><a href="https://twitter.com/rpic_jdrisep"><img src="https://cdn3.iconfinder.com/data/icons/social-icons-5/607/Twitterbird.png" width="100" alt="Soon" class="thumbnail" title="Twitter"/></a></p>
+    <p class="social_icon"><a href="http://dontgetserious.com/wp-content/uploads/2015/08/Google-Troll-by-bing.jpg"><img src="http://www.brandsoftheworld.com/sites/default/files/styles/logo-thumbnail/public/102015/google-plus.png?itok=2QM_tVeh" width="100" alt="Soon" class="thumbnail" titlz="Google Plus"/></a></p>
+    <p class="social_icon"><a href="https://fr.linkedin.com/in/rpic-isep-890343134"><img src="http://www.lacqplus.asso.fr/wp-content/uploads/2015/09/Linkedin_circle.svg.png" width="100" alt="Soon" class="thumbnail" title="LinkedIn"/></a></p>
   </div>
   <footer class="secondary_header footer">
-    <div class="copyright">Copyright © Maillet Antonin. All rights reserved. <a href="mailto:antonin.maillet@isep.fr"> Email Us</a></div>
+    <div class="copyright">Copyright © Maillet Antonin. All rights reserved.<a href="mailto:contact@rpic.fr?&cc=jeremy.nonn@isep.fr&subject=Contact RPIC - JDR ISEP&body=Bonjour,%0A%0AVOTRE%20MESSAGE%20ICI%0A%0ACordialement,%0A%0ANOM%0APrenom">Email Us</a></div>
   </footer>
 </div>
+
+
 </body>
 </html>

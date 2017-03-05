@@ -1,0 +1,16 @@
+
+<META HTTP-EQUIV="Refresh" CONTENT="1; URL={% url 'chatFrame' %}">
+
+{% for message in liste %}
+
+<p>
+    {% if message.user.username == "admin" %}
+        <font color="red">
+        {{message.user.username}} : {{ message.texte }}<br>
+        </font>
+    {% else %}
+        {{message.user.username}} : {{ message.texte }}<br>
+    {% endif %}
+</p>
+
+{% endfor %}

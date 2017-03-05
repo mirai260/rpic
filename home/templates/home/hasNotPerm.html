@@ -1,0 +1,12 @@
+
+{% extends "base.html" %}
+
+
+{% block content %}
+  <p>Vous n'avez pas la permission de faire cela. Contactez le modérateur : contact@rpic.fr
+  </p><a href="mailto:contact@rpic.fr?&cc=jeremy.nonn@isep.fr&subject=Contact RPIC - JDR ISEP&body=Bonjour,%0A%0AVOTRE%20MESSAGE%20ICI%0A%0ACordialement,%0A%0ANOM%0APrenom">Email Us</a>
+
+<p>
+    <a href="{% url 'rpicHomep' %}">retour à l'accueil</a>
+</p>
+{% endblock %}

@@ -1,13 +1,15 @@
 
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="fr">
 <head>
-<meta charset="utf-8">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'home/images/Logo_2.jpg' %}" />
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>RPIC Membres</title>
+<!--<link href="{% static 'home/css/singlePageTemplate.css' %}" rel="stylesheet" type="text/css">-->
 
 <!-- Bootstrap -->
 <link rel="stylesheet" href="{% static 'home/css/bootstrap.css' %}">
@@ -15,7 +17,7 @@
 </head>
 <body>
 <!-- Main Container -->
-<div class="container"> 
+<div class="container">
   <!-- Navigation -->
   <header> <a href="{% url 'rpicHomep' %}">
     <h4 class="logo">RPIC</h4>
@@ -36,8 +38,34 @@
       <h2>ABOUT US</h2>
     </div>
   </div>
-  <div class="container ">
+<div class="container ">
 <div class="row">
+    {% for membre in listeMJ %}
+        <div class="col-lg-4 col-sm-12 text-center">
+            {% if membre.profil.personnagePrincipal != None and membre.profil.personnagePrincipal.image.url != None %}
+                <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="{{membre.profil.personnagePrincipal.image.url}}" data-holder-rendered="true">
+            {% else %}
+                <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
+            {% endif %}
+            <h3>{{membre.profil.prenom}} {{membre.profil.nom}}</h3>
+            <h4>RP: MJ</h4>
+            <p>{{membre.profil.description}}</p>
+        </div>
+    {% endfor %}
+
+    {% for membre in liste %}
+        <div class="col-lg-4 col-sm-12 text-center">
+            {% if membre.profil.personnagePrincipal != None and membre.profil.personnagePrincipal.image.url != None %}
+                <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="{{membre.profil.personnagePrincipal.image.url}}" data-holder-rendered="true">
+            {% else %}
+                <img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
+            {% endif %}
+            <h3>{{membre.profil.prenom}} {{membre.profil.nom}}</h3>
+            <h4>RP: {{membre.profil.personnagePrincipal.nom}}</h4>
+            <p>{{membre.profil.description}}</p>
+        </div>
+    {% endfor %}
+    <!--
       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/405319_187935831322447_1670288752_n.jpg?oh=ebb82b2abeafd0918ded57c569e9d803&oe=58D2F55D" data-holder-rendered="true">
         <h3>Jérémy Nonn : MJ 1</h3>
         <p>Fondateur associé il à créér le scénario, la carte, les guildes et il est également un MJ.</p>
@@ -46,47 +74,60 @@
         <h3>Thomas Girault : MJ 2</h3>
         <p>Nouveau MJ avec une longue expérience de JDR derriere lui.</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://statici.behindthevoiceactors.com/behindthevoiceactors/_img/chars/rias-gremory-high-school-dxd-7.28.jpg" data-holder-rendered="true">
+      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="{% static 'home/rias.png' %}" data-holder-rendered="true">
         <h3>Antonin Maillet</h3>
         <p>Co-fondateur et créateur du site web je suis aussi un joueur. Je suis Rias Gremory, une elfe de mana mi succube.</p>
       </div>
       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://vignette4.wikia.nocookie.net/highschooldxd/images/6/6a/Vali_new2.png" data-holder-rendered="true">
-        <h3>Vincent Milles-Lacroix</h3>
+        <h3>Vincent Millies-Lacroix</h3>
         <p>Elfe archer.</p>
       </div>
       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://s-media-cache-ak0.pinimg.com/564x/2f/c2/73/2fc27313195faa853058d06e3d92e286.jpg" data-holder-rendered="true">
         <h3>Arthur Rouaix</h3>
         <p>Un singe.</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://aventures.roldaice.free.fr/Images/BlindingMageDeschamps.jpg" data-holder-rendered="true">
-        <h3>Baudouin La</h3>
-        <p>Un elfe mage de lumière très en rogne avec les nains.</p>
+      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="{{baudouin.profil.personnagePrincipal.image.url}}" data-holder-rendered="true">
+        <h3>{{baudouin.profil.prenom}} {{baudouin.profil.nom}}</h3>
+        <p>{{baudouin.profil.description}}</p>
       </div>
       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://img.xooimage.com/files110/c/4/9/vip-re-4eb61e9.png" data-holder-rendered="true">
         <h3>Guillaume Pasquereau</h3>
-        <p>Un chanteur aveugle.</p>
+        <p>Une mage du vent punk.</p>
       </div>
       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://s-media-cache-ak0.pinimg.com/564x/2e/f0/fc/2ef0fc90f7ad771738c4450f1ededb21.jpg" data-holder-rendered="true">
-        <h3>Hugo Briet</h3>
-        <p>Un nain.</p>
+        <h3>{{hugo.profil.prenom}} {{hugo.profil.nom}}</h3>
+        <p>{{hugo.profil.description}}</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
-        <h3>Sebastien Gomez</h3>
-        <p>Un nouveau.</p>
+      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="{{ kang.image.url }}" data-holder-rendered="true">
+        <h3>Yann Dargent</h3>
+        <p>Homme-dragon support assassin mage CaC healer DPS</p>
       </div>
-     <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
-        <h3>???</h3>
-        <p>Un nouveau.</p>
+     <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://vignette1.wikia.nocookie.net/monsterspedia/images/f/f8/170877.jpg/revision/latest?cb=20140324012057" data-holder-rendered="true">
+        <h3>Vincent Idrissov</h3>
+        <p>Demon</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
-        <h3>???</h3>
-        <p>Un nouveau.</p>
+      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://megarno.free.fr/aidedd/moinesmall.jpg" data-holder-rendered="true">
+        <h3>Alban Deniau</h3>
+        <p>Humain moine.</p>
       </div>
-      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
-        <h3>Peut-être vous !</h3>
+      <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="http://aws-cf.ados.fr/prod/photos/3/5/2/7864352/2602489/big-2602489f81.jpg?v=5" data-holder-rendered="true">
+        <h3>Hugues Vincey</h3>
         <p>Envoyez nous un message !</p>
       </div>
-    </div>
+       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
+        <h3>Antoine</h3>
+        <p>Le troisième MJ !</p>
+      </div>
+       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
+        <h3>Chloé</h3>
+        <p>Work in progress</p>
+      </div>
+       <div class="col-lg-4 col-sm-12 text-center"><img class="img-circle" alt="140x140" style="width: 140px; height: 140px;" src="https://image.freepik.com/free-icon/question-mark_318-52837.jpg" data-holder-rendered="true">
+        <h3>Peut-être vous !</h3>
+        <p>Envoyez nous un message !</p>
+      </div>-->
+
+</div>
  <footer class="text-center">
   <div class="container">
     <div class="row">
@@ -96,11 +137,11 @@
     </div>
   </div>
 </footer>
-<!-- / FOOTER --> 
+<!-- / FOOTER -->
 
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> 
-<script src="{% static 'home/js/jquery.js' %}"></script> 
-<!-- Include all compiled plugins (below), or include individual files as needed --> 
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="{% static 'home/js/jquery.js' %}"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="{% static 'home/js/bootstrap.js' %}"></script>
 </body>
 </html>

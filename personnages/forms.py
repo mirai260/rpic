@@ -10,4 +10,4 @@ class FichePersoForm(forms.ModelForm):
 	class Meta:
 		model = FichePerso
 		#fields = '__all__'
-		exclude = ('perso',)
+		exclude = ('perso', 'extra', 'item')
